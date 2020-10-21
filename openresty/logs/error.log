@@ -1,0 +1,21 @@
+2020/10/21 16:26:43 [emerg] 772871#772871: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/10/21 16:26:43 [emerg] 772871#772871: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/10/21 16:26:43 [emerg] 772871#772871: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/10/21 16:26:43 [emerg] 772871#772871: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/10/21 16:26:43 [emerg] 772871#772871: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/10/21 16:26:43 [emerg] 772871#772871: still could not bind()
+2020/10/21 16:28:02 [emerg] 774295#774295: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/10/21 16:28:02 [emerg] 774295#774295: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/10/21 16:28:02 [emerg] 774295#774295: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/10/21 16:37:26 [error] 781813#781813: *1 open() "/home/erik/projects/benchwarmer/openresty/html/favicon.ico" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost:8080", referrer: "http://localhost:8080/hello"
+2020/10/21 16:48:57 [emerg] 791911#791911: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/10/21 16:48:57 [emerg] 791911#791911: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/10/21 16:48:57 [emerg] 791911#791911: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/10/21 16:48:57 [emerg] 791911#791911: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/10/21 16:48:57 [emerg] 791911#791911: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/10/21 16:49:45 [alert] 781812#781812: worker process 781813 exited on signal 9
+2020/10/21 16:51:30 [error] 792886#792886: *2 lua entry thread aborted: runtime error: content_by_lua(nginx.conf:25):4: bad argument #1 to 'decode' (string expected, got nil)
+stack traceback:
+coroutine 0:
+	[C]: in function 'decode'
+	content_by_lua(nginx.conf:25):4: in main chunk, client: 127.0.0.1, server: localhost, request: "POST /json HTTP/1.1", host: "localhost:8080"

@@ -4,11 +4,36 @@ services:
     build:
       context: ./go-std
     container_name: go-std
-    ports:
-      - "8080:8080"
+    environment:
+      - BENCH_WORKERS=$BENCH_WORKERS
+      - GOMAXPROCS=$BENCH_WORKERS
 
   go-fasthttp:
     build:
       context: ./go-fasthttp
     container_name: go-fasthttp
+    environment:
+      - BENCH_WORKERS=$BENCH_WORKERS
+      - GOMAXPROCS=$BENCH_WORKERS
+
+  # python-flask:
+  #   build:
+  #     context: ./python-flask
+  #   container_name: python-flask
+  #   environment:
+  #     - BENCH_WORKERS=$BENCH_WORKERS
+
+  python-fastapi:
+    build:
+      context: ./python-fastapi
+    container_name: python-fastapi
+    environment:
+      - BENCH_WORKERS=$BENCH_WORKERS
+
+  openresty:
+    build:
+      context: ./openresty
+    container_name: openresty
+    volumes:
+      - ./openresty/conf:/opt/openresty/conf
 

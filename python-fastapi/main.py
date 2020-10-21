@@ -19,4 +19,4 @@ async def json_handler(req: JSONReq):
     return {"msg": f"{req.greeting} {req.name}"}
 
 if __name__ == "__main__":
-    uvicorn.run(app, port=int(os.getenv("BENCH_PORT")), host=os.getenv("BENCH_HOST"))
+    uvicorn.run("main:app", port=int(os.getenv("BENCH_PORT")), host=os.getenv("BENCH_HOST"), access_log=False, workers=int(os.getenv("BENCH_WORKERS")))

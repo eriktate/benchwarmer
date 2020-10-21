@@ -1,0 +1,5 @@
+127.0.0.1 - - [21/Oct/2020:16:37:26 -0400] "GET /hello HTTP/1.1" 200 24 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36"
+127.0.0.1 - - [21/Oct/2020:16:37:26 -0400] "GET /favicon.ico HTTP/1.1" 404 561 "http://localhost:8080/hello" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36"
+127.0.0.1 - - [21/Oct/2020:16:51:22 -0400] "GET /hello HTTP/1.1" 200 24 "-" "curl/7.68.0"
+127.0.0.1 - - [21/Oct/2020:16:51:30 -0400] "POST /json HTTP/1.1" 500 183 "-" "curl/7.68.0"
+127.0.0.1 - - [21/Oct/2020:16:53:38 -0400] "POST /json HTTP/1.1" 200 38 "-" "curl/7.68.0"

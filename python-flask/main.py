@@ -1,9 +1,14 @@
 import json
 import os
+import logging
 
 from flask import (Flask, request)
 
 app = Flask(__name__)
+
+# disable logging so it doesn't interfere with benchmarks
+log = logging.getLogger('werkzeug')
+log.disabled = True
 
 @app.route("/hello", methods=["GET"])
 def hello_handler():
