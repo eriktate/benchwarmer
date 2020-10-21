@@ -1,0 +1,14 @@
+version: "3"
+services:
+  go-std:
+    build:
+      context: ./go-std
+    container_name: go-std
+    ports:
+      - "8080:8080"
+
+  go-fasthttp:
+    build:
+      context: ./go-fasthttp
+    container_name: go-fasthttp
+

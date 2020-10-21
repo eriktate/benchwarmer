@@ -75,6 +75,7 @@ func run(addr string) error {
 
 func main() {
 	addr := fmt.Sprintf("%s:%s", os.Getenv("BENCH_HOST"), os.Getenv("BENCH_PORT"))
+	log.Printf("Listening on %s", addr)
 	if err := run(addr); err != nil {
 		log.Fatalf("server failed: %s", err)
 	}
