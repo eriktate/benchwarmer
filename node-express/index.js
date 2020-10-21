@@ -1,0 +1,24 @@
+const express = require("express");
+
+const host = process.env.BENCH_HOST
+const port = process.env.BENCH_PORT
+
+const app = express();
+app.use(express.json());
+
+app.get("/hello", (req, res) => {
+  res.send("Hello, world!");
+});
+
+app.post("/json", (req, res) => {
+  console.log(req.body);
+  const { greeting, name } = req.body;
+  console.log("greeting: ", greeting);
+  res.send(JSON.stringify({
+    msg: `${greeting} ${name}`
+  }));
+});
+
+app.listen(port, host, () => {
+  console.log(`Listening on ${host}:${port}`)
+});
