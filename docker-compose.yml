@@ -37,3 +37,9 @@ services:
     volumes:
       - ./openresty/conf:/opt/openresty/conf
 
+  rust-warp:
+    build:
+      context: ./rust-warp
+    container_name: rust-warp
+    environment:
+      - BENCH_WORKERS=$BENCH_WORKERS
