@@ -16,12 +16,19 @@ services:
       - BENCH_WORKERS=$BENCH_WORKERS
       - GOMAXPROCS=$BENCH_WORKERS
 
-  # python-flask:
-  #   build:
-  #     context: ./python-flask
-  #   container_name: python-flask
-  #   environment:
-  #     - BENCH_WORKERS=$BENCH_WORKERS
+  node-express:
+    build:
+      context: ./node-express
+    container_name: node-express
+    environment:
+    - BENCH_WORKERS=$BENCH_WORKERS
+
+  python-flask:
+    build:
+      context: ./python-flask
+    container_name: python-flask
+    environment:
+      - BENCH_WORKERS=$BENCH_WORKERS
 
   python-fastapi:
     build:

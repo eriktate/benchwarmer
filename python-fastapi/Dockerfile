@@ -1,4 +1,4 @@
-FROM python:3.9-slim
+FROM python:3.9-alpine
 
 EXPOSE 8080
 ENV BENCH_HOST=0.0.0.0

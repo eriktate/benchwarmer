@@ -11,9 +11,7 @@ app.get("/hello", (req, res) => {
 });
 
 app.post("/json", (req, res) => {
-  console.log(req.body);
   const { greeting, name } = req.body;
-  console.log("greeting: ", greeting);
   res.send(JSON.stringify({
     msg: `${greeting} ${name}`
   }));
