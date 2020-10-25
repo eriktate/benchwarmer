@@ -1,3 +1,4 @@
 target/
 reports/
 aggregate.csv
+frameworks/openresty/conf/nginx.conf
