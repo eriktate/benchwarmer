@@ -17,7 +17,7 @@ def hello_handler():
 @app.route("/json", methods=["POST"])
 def json_handler():
     req = json.loads(request.data)
-    return f'{req["greeting"]} {req["name"]}'
+    return json.dumps({"msg": f'{req["greeting"]} {req["name"]}'})
 
 if __name__ == "__main__":
     app.run(host=os.getenv("BENCH_HOST"), port=os.getenv("BENCH_PORT"))

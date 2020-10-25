@@ -50,3 +50,10 @@ services:
     container_name: rust-warp
     environment:
       - BENCH_WORKERS=$BENCH_WORKERS
+
+  rust-actix:
+    build:
+      context: ./rust-actix
+    container_name: rust-actix
+    environment:
+      - BENCH_WORKERS=$BENCH_WORKERS
