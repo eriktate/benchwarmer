@@ -14,7 +14,7 @@ def main():
                 reports[framework] = {}
             reports[framework][bench] = json.load(fd)
 
-    with open("aggregate.csv", "w") as csvfile:
+    with open("../aggregate.csv", "w") as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow([
             "framework",
