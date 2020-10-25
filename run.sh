@@ -6,17 +6,20 @@ run () {
 	docker run \
 		-it \
 		--network=benchwarmer_default \
-		-v $(pwd)/wrk-scripts:/opt/wrk2/wrk-scripts \
-		wrk2 -c1000 -t500 -d30s -R10000 -s ./wrk-scripts/${benchmark}.lua http://${framework}:8080/${benchmark} | grep "JSON Output:" -A5000 | tail -n+2 > ./reports/${framework}_${benchmark}.json
-
+		-v $(pwd)/benchmarks:/opt/wrk2/benchmarks \
+		wrk2 -c1000 -t500 -d30s -R10000 -s ./benchmarks/${benchmark}.lua http://${framework}:8080/${benchmark} | grep "JSON Output:" -A5000 | tail -n+2 > ./reports/${framework}_${benchmark}.json
 }
 
 for framework in ./frameworks/*/
 do
-	framework=${framework%*/}
-	framework=${framework##*/}
+	for bench in ./benchmarks/*
+	do
+		bench=${bench%.*}
+		bench=${bench##*/}
+		framework=${framework%*/}
+		framework=${framework##*/}
 
-	run $framework hello
-	run $framework json
+		run $framework $bench
+		sleep 5s
+	done
 done
-

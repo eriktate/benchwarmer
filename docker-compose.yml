@@ -2,7 +2,7 @@ version: "3"
 services:
   go-std:
     build:
-      context: ./go-std
+      context: ./frameworks/go-std
     container_name: go-std
     environment:
       - BENCH_WORKERS=$BENCH_WORKERS
@@ -10,7 +10,7 @@ services:
 
   go-fasthttp:
     build:
-      context: ./go-fasthttp
+      context: ./frameworks/go-fasthttp
     container_name: go-fasthttp
     environment:
       - BENCH_WORKERS=$BENCH_WORKERS
@@ -18,42 +18,42 @@ services:
 
   node-express:
     build:
-      context: ./node-express
+      context: ./frameworks/node-express
     container_name: node-express
     environment:
     - BENCH_WORKERS=$BENCH_WORKERS
 
   python-flask:
     build:
-      context: ./python-flask
+      context: ./frameworks/python-flask
     container_name: python-flask
     environment:
       - BENCH_WORKERS=$BENCH_WORKERS
 
   python-fastapi:
     build:
-      context: ./python-fastapi
+      context: ./frameworks/python-fastapi
     container_name: python-fastapi
     environment:
       - BENCH_WORKERS=$BENCH_WORKERS
 
   openresty:
     build:
-      context: ./openresty
+      context: ./frameworks/openresty
     container_name: openresty
     volumes:
-      - ./openresty/conf:/opt/openresty/conf
+      - ./frameworks/openresty/conf:/opt/openresty/conf
 
   rust-warp:
     build:
-      context: ./rust-warp
+      context: ./frameworks/rust-warp
     container_name: rust-warp
     environment:
       - BENCH_WORKERS=$BENCH_WORKERS
 
   rust-actix:
     build:
-      context: ./rust-actix
+      context: ./frameworks/rust-actix
     container_name: rust-actix
     environment:
       - BENCH_WORKERS=$BENCH_WORKERS

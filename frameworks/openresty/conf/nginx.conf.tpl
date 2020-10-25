@@ -1,4 +1,4 @@
-worker_processes 4;
+worker_processes ${BENCH_WORKERS};
 daemon off;
 error_log /dev/stderr;
 events {

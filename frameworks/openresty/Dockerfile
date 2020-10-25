@@ -2,6 +2,7 @@ FROM ubuntu
 
 WORKDIR /opt/openresty
 
+COPY entrypoint.sh ./entrypoint.sh
 ENV PATH=/usr/local/openresty/nginx/sbin:$PATH
 
 RUN apt-get update \
@@ -13,4 +14,4 @@ RUN apt-get update \
 	&& apt-get install -y openresty
 
 
-ENTRYPOINT ["nginx", "-c", "/opt/openresty/conf/nginx.conf"]
+ENTRYPOINT ["./entrypoint.sh"]
