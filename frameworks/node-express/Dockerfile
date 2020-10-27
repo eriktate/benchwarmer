@@ -9,6 +9,8 @@ WORKDIR /opt/src
 COPY . ./
 
 RUN rm -rf node_modules \
-	&& npm install
+	&& npm install \
+	&& npm install -g pm2
 
-ENTRYPOINT ["node", "index.js"]
+
+ENTRYPOINT ["./entrypoint.sh"]

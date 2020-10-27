@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
 use std::env;
 use std::net::{IpAddr, Ipv4Addr, SocketAddr};
+use tokio::runtime;
 use warp::Filter;
 
 #[derive(Deserialize)]
@@ -14,8 +15,7 @@ struct JSONRes {
     msg: String,
 }
 
-#[tokio::main]
-async fn main() {
+async fn run() {
     // get env configs
     let host_env = env::var("BENCH_HOST").unwrap_or(String::from("127.0.0.1"));
     let port_env = env::var("BENCH_PORT").unwrap_or(String::from("8080"));
@@ -39,4 +39,26 @@ async fn main() {
 
     let routes = hello.or(json);
     warp::serve(routes).run(addr).await;
+}
+
+fn main() {
+    let workers_env = std::env::var("BENCH_WORKERS").unwrap_or(String::from("1"));
+    let workers: usize = workers_env.parse().unwrap();
+    // need to switch schedulers depending on the number of workers defined
+    let mut runtime = if workers > 1 {
+        runtime::Builder::new()
+            .threaded_scheduler()
+            .core_threads(workers)
+            .enable_all()
+            .build()
+            .unwrap()
+    } else {
+        runtime::Builder::new()
+            .basic_scheduler()
+            .enable_all()
+            .build()
+            .unwrap()
+    };
+
+    runtime.block_on(async { run().await })
 }
