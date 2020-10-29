@@ -10,6 +10,7 @@ run () {
 		wrk2 -c1000 -t500 -d30s -R10000 -s ./benchmarks/${benchmark}.lua http://${framework}:8080/${benchmark} | grep "JSON Output:" -A5000 | tail -n+2 > ./reports/${framework}_${benchmark}.json
 }
 
+# TODO (etate): Check if wrk2 image exists. If not, need to build it first.
 if [ -z "$1" ]; then
 	for framework in ./frameworks/*/
 	do

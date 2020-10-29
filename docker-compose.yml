@@ -61,3 +61,17 @@ services:
     container_name: rust-actix
     environment:
       - BENCH_WORKERS=$BENCH_WORKERS
+
+  dotnetcore-webapi:
+    build:
+      context: ./frameworks/dotnetcore-webapi
+    container_name: dotnetcore-webapi
+    environment:
+      - BENCH_WORKERS=$BENCH_WORKERS
+
+  ruby-sinatra:
+    build:
+      context: ./frameworks/ruby-sinatra
+    container_name: ruby-sinatra
+    environment:
+      - BENCH_WORKERS=$BENCH_WORKERS
