@@ -1,6 +1,7 @@
 import os
 
 from fastapi import FastAPI
+from fastapi.responses import PlainTextResponse
 from pydantic import BaseModel
 import uvicorn
 
@@ -10,9 +11,9 @@ class JSONReq(BaseModel):
 
 app = FastAPI()
 
-@app.get("/hello")
+@app.get("/hello", response_class=PlainTextResponse)
 async def hello_handler():
-    return "Hello, world!"
+    return "Hello, World!"
 
 @app.post("/json")
 async def json_handler(req: JSONReq):

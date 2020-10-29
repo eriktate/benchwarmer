@@ -12,7 +12,7 @@ log.disabled = True
 
 @app.route("/hello", methods=["GET"])
 def hello_handler():
-    return "Hello, world!"
+    return "Hello, World!"
 
 @app.route("/json", methods=["POST"])
 def json_handler():

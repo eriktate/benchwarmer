@@ -11,7 +11,7 @@ http {
 		location /hello {
 			default_type text/html;
 			content_by_lua_block {
-				ngx.say("Hello, world!")
+				ngx.print("Hello, World!")
 			}
 		}
 
@@ -21,7 +21,7 @@ http {
 				local cjson = require("cjson")
 				ngx.req.read_body()
 				local json_req = cjson.decode(ngx.var.request_body)
-				local json_res = { greeting=(json_req.greeting .. " " .. json_req.name) }
+				local json_res = { msg=(json_req.greeting .. " " .. json_req.name) }
 				ngx.say(cjson.encode(json_res))
 			}
 		}

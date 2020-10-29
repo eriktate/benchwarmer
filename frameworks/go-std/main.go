@@ -14,7 +14,7 @@ type JSONReq struct {
 }
 
 type JSONRes struct {
-	Greeting string `json:"msg"`
+	Msg string `json:"msg"`
 }
 
 func handleHello(w http.ResponseWriter, r *http.Request) {
@@ -23,6 +23,7 @@ func handleHello(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleJSON(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Content-Type", "application/json")
 	var req JSONReq
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -32,7 +33,7 @@ func handleJSON(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
 	res := JSONRes{
-		Greeting: fmt.Sprintf("%s %s", req.Greeting, req.Name),
+		Msg: fmt.Sprintf("%s %s", req.Greeting, req.Name),
 	}
 
 	data, err := json.Marshal(res)

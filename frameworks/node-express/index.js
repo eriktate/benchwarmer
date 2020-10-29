@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 
 app.get("/hello", (req, res) => {
-  res.send("Hello, world!");
+  res.send("Hello, World!");
 });
 
 app.post("/json", (req, res) => {

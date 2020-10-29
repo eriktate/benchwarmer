@@ -26,7 +26,7 @@ async fn run() {
     let port = port_env.parse::<u16>().unwrap();
     let addr = SocketAddr::new(IpAddr::V4(host), port);
 
-    let hello = warp::path!("hello").map(|| format!("Hello, world!"));
+    let hello = warp::path!("hello").map(|| format!("Hello, World!"));
     let json = warp::post()
         .and(warp::path("json"))
         .and(warp::body::json())

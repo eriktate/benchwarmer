@@ -24,7 +24,7 @@ async fn json(req: web::Json<JSONReq>) -> impl Responder {
 
 #[get("/hello")]
 async fn hello() -> impl Responder {
-    String::from("Hello, world!")
+    String::from("Hello, World!")
 }
 
 #[actix_web::main]
