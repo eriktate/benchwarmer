@@ -16,7 +16,7 @@ passwd = os.getenv("BENCH_DB_PASSWORD")
 
 db = pool.SimpleConnectionPool(
     1,
-    50,
+    500,
     host=host,
     port=port,
     user=user,
@@ -61,14 +61,11 @@ async def json_handler(req: Greeting):
 
 @app.post("/db")
 async def db_handler(req: Greeting):
-    print("Handling DB!")
     req.id = str(uuid4())
     conn = db.getconn()
     cur = conn.cursor()
     cur.execute(createQuery, (req.id, req.greeting, req.name))
-    print("Created greeting!")
     cur.execute(getQuery, (req.id,))
-    print("Fetched greeting!")
     row = cur.fetchone()
 
     # generate response
@@ -81,7 +78,7 @@ async def db_handler(req: Greeting):
     # clean up
     conn.commit()
     cur.close()
-    conn.close()
+    db.putconn(conn)
 
     return res
 
