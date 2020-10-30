@@ -6,13 +6,18 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/valyala/fasthttp"
 )
 
-type JSONReq struct {
-	Greeting string `json:"greeting"`
-	Name     string `json:"name"`
+type Greeting struct {
+	ID        string    `json:"id,omitempty"`
+	Greeting  string    `json:"greeting"`
+	Name      string    `json:"name"`
+	Used      bool      `json:"used"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
 }
 
 type JSONRes struct {
@@ -25,7 +30,7 @@ func handleHello(ctx *fasthttp.RequestCtx) {
 }
 
 func handleJSON(ctx *fasthttp.RequestCtx) {
-	var req JSONReq
+	var req Greeting
 	if err := json.Unmarshal(ctx.PostBody(), &req); err != nil {
 		ctx.SetStatusCode(http.StatusBadRequest)
 		_, _ = ctx.Write([]byte("failed to read request body"))
@@ -37,6 +42,41 @@ func handleJSON(ctx *fasthttp.RequestCtx) {
 	}
 
 	data, err := json.Marshal(res)
+	if err != nil {
+		ctx.SetStatusCode(fasthttp.StatusInternalServerError)
+		_, _ = ctx.Write([]byte("failed to create greeting"))
+		return
+	}
+
+	ctx.SetStatusCode(fasthttp.StatusOK)
+	_, _ = ctx.Write(data)
+}
+
+func handleDB(ctx *fasthttp.RequestCtx) {
+	var greeting Greeting
+	if err := json.Unmarshal(ctx.PostBody(), &greeting); err != nil {
+		ctx.SetStatusCode(http.StatusBadRequest)
+		_, _ = ctx.Write([]byte("failed to read request body"))
+		return
+	}
+
+	id, err := CreateGreeting(db, greeting)
+	if err != nil {
+		log.Println(err)
+		ctx.SetStatusCode(http.StatusInternalServerError)
+		_, _ = ctx.Write([]byte("failed to create greeting"))
+		return
+	}
+
+	greeting, err = GetGreeting(db, id)
+	if err != nil {
+		log.Println(err)
+		ctx.SetStatusCode(http.StatusInternalServerError)
+		_, _ = ctx.Write([]byte("failed to get greeting"))
+		return
+	}
+
+	data, err := json.Marshal(greeting)
 	if err != nil {
 		ctx.SetStatusCode(fasthttp.StatusInternalServerError)
 		_, _ = ctx.Write([]byte("failed to create greeting"))
@@ -67,6 +107,12 @@ func handleRoutes(ctx *fasthttp.RequestCtx) {
 			return
 		}
 		handleJSON(ctx)
+	case "/db":
+		if !ctx.IsPost() {
+			unsupported(ctx)
+			return
+		}
+		handleDB(ctx)
 	}
 }
 
@@ -75,6 +121,12 @@ func run(addr string) error {
 }
 
 func main() {
+	var err error
+	db, err = Connect()
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	addr := fmt.Sprintf("%s:%s", os.Getenv("BENCH_HOST"), os.Getenv("BENCH_PORT"))
 	log.Printf("GOMAXPROCS: %s", os.Getenv("GOMAXPROCS"))
 	log.Printf("Listening on %s", addr)

@@ -4,7 +4,7 @@ WORKDIR /opt/src
 
 COPY . /opt/src
 
-RUN GOOS=linux CGO_ENABLED=0 go build -o main main.go
+RUN GOOS=linux CGO_ENABLED=0 go build -o main *.go
 
 
 FROM scratch

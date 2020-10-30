@@ -1,11 +1,27 @@
 version: "3"
 services:
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=$BENCH_DB_PASSWORD
+      - POSTGRES_USER=$BENCH_DB_USER
+    volumes:
+      - ./postgres/init:/docker-entrypoint-initdb.d
+    ports:
+      - 5432:5432
+
   go-std:
     build:
       context: ./frameworks/go-std
     container_name: go-std
+    depends_on:
+      - postgres
     environment:
       - BENCH_WORKERS=$BENCH_WORKERS
+      - BENCH_DB_HOST=postgres
+      - BENCH_DB_PORT=5432
+      - BENCH_DB_USER=$BENCH_DB_USER
+      - BENCH_DB_PASSWORD=$BENCH_DB_PASSWORD
       - GOMAXPROCS=$BENCH_WORKERS
 
   go-fasthttp:
@@ -14,6 +30,10 @@ services:
     container_name: go-fasthttp
     environment:
       - BENCH_WORKERS=$BENCH_WORKERS
+      - BENCH_DB_HOST=postgres
+      - BENCH_DB_PORT=5432
+      - BENCH_DB_USER=$BENCH_DB_USER
+      - BENCH_DB_PASSWORD=$BENCH_DB_PASSWORD
       - GOMAXPROCS=$BENCH_WORKERS
 
   node-express:
@@ -21,7 +41,11 @@ services:
       context: ./frameworks/node-express
     container_name: node-express
     environment:
-    - BENCH_WORKERS=$BENCH_WORKERS
+      - BENCH_WORKERS=$BENCH_WORKERS
+      - BENCH_DB_HOST=postgres
+      - BENCH_DB_PORT=5432
+      - BENCH_DB_USER=$BENCH_DB_USER
+      - BENCH_DB_PASSWORD=$BENCH_DB_PASSWORD
 
   python-flask:
     build:
@@ -29,6 +53,10 @@ services:
     container_name: python-flask
     environment:
       - BENCH_WORKERS=$BENCH_WORKERS
+      - BENCH_DB_HOST=postgres
+      - BENCH_DB_PORT=5432
+      - BENCH_DB_USER=$BENCH_DB_USER
+      - BENCH_DB_PASSWORD=$BENCH_DB_PASSWORD
 
   python-fastapi:
     build:
@@ -36,6 +64,10 @@ services:
     container_name: python-fastapi
     environment:
       - BENCH_WORKERS=$BENCH_WORKERS
+      - BENCH_DB_HOST=postgres
+      - BENCH_DB_PORT=5432
+      - BENCH_DB_USER=$BENCH_DB_USER
+      - BENCH_DB_PASSWORD=$BENCH_DB_PASSWORD
 
   openresty:
     build:
@@ -47,6 +79,10 @@ services:
       - ./frameworks/openresty/conf:/opt/openresty/conf
     environment:
       - BENCH_WORKERS=$BENCH_WORKERS
+      - BENCH_DB_HOST=postgres
+      - BENCH_DB_PORT=5432
+      - BENCH_DB_USER=$BENCH_DB_USER
+      - BENCH_DB_PASSWORD=$BENCH_DB_PASSWORD
 
   rust-warp:
     build:
@@ -54,6 +90,10 @@ services:
     container_name: rust-warp
     environment:
       - BENCH_WORKERS=$BENCH_WORKERS
+      - BENCH_DB_HOST=postgres
+      - BENCH_DB_PORT=5432
+      - BENCH_DB_USER=$BENCH_DB_USER
+      - BENCH_DB_PASSWORD=$BENCH_DB_PASSWORD
 
   rust-actix:
     build:
@@ -61,6 +101,10 @@ services:
     container_name: rust-actix
     environment:
       - BENCH_WORKERS=$BENCH_WORKERS
+      - BENCH_DB_HOST=postgres
+      - BENCH_DB_PORT=5432
+      - BENCH_DB_USER=$BENCH_DB_USER
+      - BENCH_DB_PASSWORD=$BENCH_DB_PASSWORD
 
   dotnetcore-webapi:
     build:
@@ -68,6 +112,10 @@ services:
     container_name: dotnetcore-webapi
     environment:
       - BENCH_WORKERS=$BENCH_WORKERS
+      - BENCH_DB_HOST=postgres
+      - BENCH_DB_PORT=5432
+      - BENCH_DB_USER=$BENCH_DB_USER
+      - BENCH_DB_PASSWORD=$BENCH_DB_PASSWORD
 
   ruby-sinatra:
     build:
@@ -75,3 +123,7 @@ services:
     container_name: ruby-sinatra
     environment:
       - BENCH_WORKERS=$BENCH_WORKERS
+      - BENCH_DB_HOST=postgres
+      - BENCH_DB_PORT=5432
+      - BENCH_DB_USER=$BENCH_DB_USER
+      - BENCH_DB_PASSWORD=$BENCH_DB_PASSWORD
