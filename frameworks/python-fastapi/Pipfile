@@ -7,6 +7,8 @@ name = "pypi"
 fastapi = "*"
 uvicorn = "*"
 pydantic = "*"
+psycopg2 = "*"
+records = "*"
 
 [dev-packages]
 

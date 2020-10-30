@@ -9,7 +9,10 @@ WORKDIR /opt/src
 
 COPY . /opt/src
 
-RUN pip install pipenv \
+RUN apk update \
+	&& apk add gcc postgresql-dev musl-dev \
+	&& pip install pipenv \
+	&& pipenv run pip install --upgrade setuptools pip \
 	&& pipenv install
 
 ENTRYPOINT ["pipenv", "run", "python", "main.py"]
